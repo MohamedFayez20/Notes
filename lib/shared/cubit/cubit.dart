@@ -71,8 +71,9 @@ class AppCubit extends Cubit<AppStates> {
           note.add(element);
         } else if (element['status'] == 'trash') {
           trash.add(element);
-        } else {
+        } else if (element['status'] == 'favorite') {
           favorite.add(element);
+          note.add(element);
         }
       });
       emit(GetDataFromDataBaseState());

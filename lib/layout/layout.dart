@@ -8,6 +8,7 @@ import 'package:notes/modules/trash.dart';
 
 import '../shared/cubit/cubit.dart';
 import '../shared/cubit/states.dart';
+import '../shared/style/style.dart';
 
 class Layout extends StatelessWidget {
   const Layout({Key? key}) : super(key: key);

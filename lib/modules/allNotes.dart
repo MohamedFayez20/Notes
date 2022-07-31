@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:notes/modules/notePage.dart';
-import 'package:notes/modules/search.dart';
 import 'package:notes/shared/style/style.dart';
 
 import '../shared/cubit/cubit.dart';
