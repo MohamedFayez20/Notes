@@ -24,7 +24,7 @@ class AppCubit extends Cubit<AppStates> {
       });
       dataBase
           .execute(
-              'CREATE TABLE tasks (id INTEGER PRIMARY KEY ,body TEXT,status TEXT)')
+              'CREATE TABLE tasks (id INTEGER PRIMARY KEY ,body TEXT,status TEXT,date TEXT)')
           .then((value) {
         print("table tasks created");
       }).catchError((error) {
@@ -32,7 +32,7 @@ class AppCubit extends Cubit<AppStates> {
       });
     }, onOpen: (dataBase) {
       getDataFromDataBase(dataBase);
-      getDataFromTasks(dataBase);
+      getDataFromTasks(dataBase, selectedDay.toString().split(' ').first);
       print("dataBase opened");
     }).then((value) {
       dataBase = value;
@@ -160,10 +160,11 @@ class AppCubit extends Cubit<AppStates> {
   void insertToTasks(String body) async {
     await dataBase.transaction((txn) {
       return txn
-          .rawInsert('INSERT INTO tasks (body,status) VALUES("$body","new")')
+          .rawInsert(
+              'INSERT INTO tasks (body,status,date) VALUES("$body","new","${selectedDay.toString().split(' ').first}")')
           .then((value) {
         print("inserted successfully");
-        getDataFromTasks(dataBase);
+        getDataFromTasks(dataBase, selectedDay.toString().split(' ').first);
         emit(InsertToTasksSuccessState());
       }).catchError((error) {
         print(error);
@@ -173,12 +174,13 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   List<Map> tasks = [];
-  void getDataFromTasks(dataBase) {
+  void getDataFromTasks(dataBase, date) {
     tasks = [];
-    dataBase.rawQuery('SELECT * FROM tasks').then((value) {
+    dataBase.rawQuery('SELECT * FROM tasks WHERE date="$date"').then((value) {
       value.forEach((element) {
         tasks.add(element);
       });
+      print(date);
       emit(GetDataFromTasksState());
     });
   }
@@ -186,7 +188,7 @@ class AppCubit extends Cubit<AppStates> {
   void updateTasks(String body, int id) {
     dataBase.rawUpdate('UPDATE tasks SET body=? WHERE id=$id', [body]).then(
         (value) {
-      getDataFromTasks(dataBase);
+      getDataFromTasks(dataBase, selectedDay.toString().split(' ').first);
       emit(AppUpdateTasksState());
     });
   }
@@ -221,22 +223,31 @@ class AppCubit extends Cubit<AppStates> {
   void done(String status, int i) {
     dataBase.rawUpdate('UPDATE tasks SET status=? WHERE id=$i', [status]).then(
         (value) {
-      getDataFromTasks(dataBase);
+      getDataFromTasks(dataBase, selectedDay.toString().split(' ').first);
       emit(AppUpdateDoneState());
     });
   }
 
   void deleteFromTasks(int i) async {
     await dataBase.rawDelete('DELETE FROM tasks WHERE id = $i').then((value) {
-      getDataFromTasks(dataBase);
+      getDataFromTasks(dataBase, selectedDay.toString().split(' ').first);
       emit(DeleteFromTasksState());
     });
   }
 
   void deleteAllFromTasks() async {
-    await dataBase.rawDelete('DELETE FROM tasks').then((value) {
-      getDataFromTasks(dataBase);
+    await dataBase.rawDelete('DELETE FROM tasks WHERE date="${selectedDay.toString().split(' ').first}"').then((value) {
+      getDataFromTasks(dataBase, selectedDay.toString().split(' ').first);
       emit(DeleteAllFromTasksState());
     });
+  }
+
+  DateTime selectedDay = DateTime.now();
+  DateTime focusedDay = DateTime.now();
+  void selectDay(select, focus) {
+    selectedDay = select;
+    focusedDay = focus;
+    getDataFromTasks(dataBase, select.toString().split(' ').first);
+    emit(SelectDayState());
   }
 }

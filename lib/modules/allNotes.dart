@@ -61,15 +61,7 @@ class AllNotes extends StatelessWidget {
                 ),
               ),
               condition: AppCubit.get(context).note.isNotEmpty,
-              fallback: (context) => const Center(
-                child: Text(
-                  'No Items',
-                  style: TextStyle(
-                    color: Colors.white12,
-                    fontSize: 25,
-                  ),
-                ),
-              ),
+              fallback: (context) => fallBack(),
             ),
           );
         });

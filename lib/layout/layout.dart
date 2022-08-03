@@ -5,10 +5,10 @@ import 'package:notes/modules/allNotes.dart';
 import 'package:notes/modules/favorite.dart';
 import 'package:notes/modules/tasks.dart';
 import 'package:notes/modules/trash.dart';
+import 'package:notes/shared/style/style.dart';
 
 import '../shared/cubit/cubit.dart';
 import '../shared/cubit/states.dart';
-import '../shared/style/style.dart';
 
 class Layout extends StatelessWidget {
   const Layout({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class Layout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) => DefaultTabController(
         initialIndex: 0,
-        length: 3,
+        length: 2,
         child: Scaffold(
           appBar: AppBar(
             elevation: 20,
@@ -31,30 +31,33 @@ class Layout extends StatelessWidget {
                 color: HexColor('#303030'),
                 icon: const Icon(Icons.more_vert),
                 onSelected: (value) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Trash()),
-                  );
+                  if (value == 1) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Trash(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Favorite(),
+                      ),
+                    );
+                  }
                 },
                 itemBuilder: (BuildContext context) => [
                   PopupMenuItem(
-                    height: 60,
-                    value: 1,
-                    textStyle:
-                        const TextStyle(color: Colors.white, fontSize: 18),
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.delete_outline_outlined,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Trash'),
-                      ],
-                    ),
-                  ),
+                      value: 1,
+                      textStyle:
+                          const TextStyle(color: Colors.white, fontSize: 18),
+                      child: menu('Trash', Icons.delete_outline_outlined)),
+                  PopupMenuItem(
+                      value: 2,
+                      textStyle:
+                          const TextStyle(color: Colors.white, fontSize: 18),
+                      child: menu('Favorites', Icons.favorite_border)),
                 ],
               ),
             ],
@@ -72,9 +75,6 @@ class Layout extends StatelessWidget {
                   icon: Icon(Icons.note_alt_outlined),
                 ),
                 Tab(
-                  icon: Icon(Icons.favorite_border),
-                ),
-                Tab(
                   icon: Icon(Icons.task_alt),
                 )
               ],
@@ -84,7 +84,6 @@ class Layout extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: [
               AllNotes(),
-              const Favorite(),
               Tasks(),
             ],
           ),

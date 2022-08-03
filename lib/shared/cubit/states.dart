@@ -39,3 +39,5 @@ class AppUpdateDoneState extends AppStates {}
 class DeleteFromTasksState extends AppStates {}
 
 class DeleteAllFromTasksState extends AppStates {}
+
+class SelectDayState extends AppStates {}

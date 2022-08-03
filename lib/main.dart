@@ -21,18 +21,19 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             appBarTheme: AppBarTheme(
-                backwardsCompatibility: false,
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: HexColor("#0E121B"),
-                ),
-                backgroundColor: HexColor("#0E121B"),
-                centerTitle: true,
-                titleTextStyle: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25),
-                elevation: 0.0,
-                iconTheme: const IconThemeData(color: Colors.white),
+              backwardsCompatibility: false,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: HexColor("#0E121B"),
+                statusBarIconBrightness: Brightness.light
+              ),
+              backgroundColor: HexColor("#0E121B"),
+              centerTitle: true,
+              titleTextStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+              elevation: 0.0,
+              iconTheme: const IconThemeData(color: Colors.white),
             ),
             primaryColor: HexColor("#202530"),
             primarySwatch: Colors.grey,

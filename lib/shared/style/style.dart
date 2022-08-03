@@ -453,3 +453,37 @@ deleteDialog(BuildContext context, Function method) {
     },
   );
 }
+
+Widget fallBack() => Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          Icon(
+            Icons.menu,
+            size: 50,
+            color: Colors.white12,
+          ),
+          Text(
+            'No Items',
+            style: TextStyle(
+              color: Colors.white12,
+              fontSize: 25,
+            ),
+          ),
+        ],
+      ),
+    );
+Widget menu(String text, IconData icon) => Row(
+      children: [
+        Icon(
+          icon,
+          color: Colors.grey,
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Text(text),
+      ],
+    );

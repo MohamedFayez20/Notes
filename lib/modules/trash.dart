@@ -46,15 +46,7 @@ class Trash extends StatelessWidget {
             ],
           ),
           condition: cubit.trash.isNotEmpty,
-          fallback: (context) => const Center(
-            child: Text(
-              'No Items',
-              style: TextStyle(
-                color: Colors.white12,
-                fontSize: 25,
-              ),
-            ),
-          ),
+          fallback: (context) => fallBack(),
         ),
       ),
     );

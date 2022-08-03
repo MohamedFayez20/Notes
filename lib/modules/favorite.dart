@@ -15,6 +15,9 @@ class Favorite extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Favorites'),
+        ),
         body: BuildCondition(
           builder: (context) => SingleChildScrollView(
             padding: const EdgeInsets.all(20.0),
@@ -48,15 +51,7 @@ class Favorite extends StatelessWidget {
             ),
           ),
           condition: cubit.favorite.isNotEmpty,
-          fallback: (context) => const Center(
-            child: Text(
-              'No Items',
-              style: TextStyle(
-                color: Colors.white12,
-                fontSize: 25,
-              ),
-            ),
-          ),
+          fallback: (context) => fallBack(),
         ),
       ),
     );
