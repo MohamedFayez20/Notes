@@ -2,6 +2,7 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../shared/cubit/cubit.dart';
@@ -30,12 +31,24 @@ class Tasks extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
           physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              if (AppCubit.get(context).tasks.isNotEmpty)
+                TextButton(
+                  onPressed: () {
+                    deleteDialog(
+                        context, AppCubit.get(context).deleteAllFromTasks);
+                  },
+                  child: const Text(
+                    'Empty',
+                    style: TextStyle(color: Colors.orange),
+                  ),
+                ),
               Container(
-                margin: const EdgeInsets.all(20),
+                margin: const EdgeInsets.only(bottom: 20),
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: HexColor("#202530"),
@@ -76,22 +89,25 @@ class Tasks extends StatelessWidget {
                   ),
                 ),
               ),
-              if (AppCubit.get(context).tasks.isNotEmpty)
-                TextButton(
-                  onPressed: () {
-                    deleteDialog(
-                        context, AppCubit.get(context).deleteAllFromTasks);
-                  },
-                  child: const Text(
-                    'Empty',
-                    style: TextStyle(color: Colors.orange),
-                  ),
+              if(AppCubit.get(context).tasks.isNotEmpty)
+                LinearPercentIndicator(
+                progressColor: Colors.teal,
+                barRadius: const Radius.circular(20),
+                percent: AppCubit.get(context).taPercent/100,
+                animation: true,
+                backgroundColor: Colors.grey.shade800,
+                leading: Text(
+                  '% ${AppCubit.get(context).taPercent.toInt()}',
+                  style: const TextStyle(color: Colors.greenAccent),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               BuildCondition(
                 condition: AppCubit.get(context).tasks.isNotEmpty,
                 builder: (context) => ListView.separated(
                     shrinkWrap: true,
-                    padding: const EdgeInsets.all(20),
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) => task(
                         context, AppCubit.get(context).tasks[index], index),

@@ -81,6 +81,7 @@ class Layout extends StatelessWidget {
             ),
           ),
           body: TabBarView(
+            key: key,
             physics: const BouncingScrollPhysics(),
             children: [
               AllNotes(),

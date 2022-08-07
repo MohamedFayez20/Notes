@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/shared/cubit/states.dart';
+import 'package:notes/shared/style/style.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -174,15 +175,52 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   List<Map> tasks = [];
+  List<Map> todayTasks = [];
+  int doneTaNumber = 0;
+  double taPercent = 0;
   void getDataFromTasks(dataBase, date) {
     tasks = [];
+    doneTaNumber = 0;
     dataBase.rawQuery('SELECT * FROM tasks WHERE date="$date"').then((value) {
       value.forEach((element) {
         tasks.add(element);
+        if (element['status'] == 'done') {
+          doneTaNumber++;
+        }
       });
-      print(date);
+      taPercent = (doneTaNumber / tasks.length) * 100;
+
+      getTodayTasks();
       emit(GetDataFromTasksState());
     });
+  }
+
+  int doneNumber = 0;
+  double percent = 0;
+  void getTodayTasks() {
+    doneNumber = 0;
+    if (tasks.isEmpty) {
+      todayTasks = [];
+      percent = 0;
+    } else {
+      for (int x = 0; x < tasks.length; x++) {
+        if (tasks[x]['date'] == DateTime.now().toString().split(' ').first) {
+          if (x == 0) {
+            todayTasks = [];
+          }
+          todayTasks.add(tasks[x]);
+          if (todayTasks[x]['status'] == 'done') {
+            doneNumber++;
+          }
+          if (x == tasks.length - 1) {
+            percent = (doneNumber / todayTasks.length) * 100;
+          }
+        }
+      }
+    }
+
+    print(todayTasks.length);
+    emit(GetTodayTasksState());
   }
 
   void updateTasks(String body, int id) {
@@ -236,7 +274,10 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void deleteAllFromTasks() async {
-    await dataBase.rawDelete('DELETE FROM tasks WHERE date="${selectedDay.toString().split(' ').first}"').then((value) {
+    await dataBase
+        .rawDelete(
+            'DELETE FROM tasks WHERE date="${selectedDay.toString().split(' ').first}"')
+        .then((value) {
       getDataFromTasks(dataBase, selectedDay.toString().split(' ').first);
       emit(DeleteAllFromTasksState());
     });

@@ -30,6 +30,8 @@ class InsertToTasksErrorState extends AppStates {}
 
 class GetDataFromTasksState extends AppStates {}
 
+class GetTodayTasksState extends AppStates {}
+
 class AppUpdateTasksState extends AppStates {}
 
 class ExpandState extends AppStates {}

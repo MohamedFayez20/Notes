@@ -487,3 +487,31 @@ Widget menu(String text, IconData icon) => Row(
         Text(text),
       ],
     );
+Widget today(cubit, index, context) => Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(
+          cubit.todayTasks[index]['status'] == 'done'
+              ? Icons.check_circle
+              : Icons.circle_outlined,
+          color: Colors.grey.shade600,
+          size: 15,
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Expanded(
+          child: Text(
+            cubit.todayTasks[index]['body'],
+            style: TextStyle(
+              color: Colors.grey.shade600,
+              overflow: TextOverflow.ellipsis,
+              decoration:
+                  AppCubit.get(context).todayTasks[index]['status'] == 'done'
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+            ),
+          ),
+        ),
+      ],
+    );

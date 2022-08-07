@@ -22,7 +22,7 @@ class Search extends StatelessWidget {
             children: [
               TextFormField(
                 controller: searchController,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white,fontSize: 20),
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     cubit.search(value);
