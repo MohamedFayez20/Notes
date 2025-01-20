@@ -28,7 +28,6 @@ class AllNotes extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => NotePage()),
                 );
               },
-              elevation: 20,
               backgroundColor: HexColor("#202530"),
               child: const Icon(
                 Icons.edit_note_sharp,

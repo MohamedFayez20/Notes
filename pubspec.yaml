@@ -35,16 +35,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   sqflite: ^2.0.0+4
-  intl: ^0.17.0
+  intl: ^0.20.1
   buildcondition: ^0.0.4
-  flutter_bloc: ^8.0.0
-  bloc: ^8.0.1
-  hexcolor: ^2.0.5
+  flutter_bloc: ^9.0.0
+  bloc: ^9.0.0
+  hexcolor: ^3.0.1
   curved_navigation_bar: ^1.0.3
-  speech_to_text: ^5.6.0
-  avatar_glow: ^2.0.2
+  speech_to_text: ^7.0.0
+  avatar_glow: ^3.0.1
   table_calendar: ^3.0.6
   percent_indicator: ^4.0.1
+  image_picker: ^1.0.2
+  google_mlkit_text_recognition: ^0.14.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -54,7 +56,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

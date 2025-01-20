@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:notes/shared/cubit/states.dart';
-import 'package:notes/shared/style/style.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -278,7 +280,7 @@ class AppCubit extends Cubit<AppStates> {
         .rawDelete(
             'DELETE FROM tasks WHERE date="${selectedDay.toString().split(' ').first}"')
         .then((value) {
-      getDataFromTasks(dataBase, selectedDay.toString().split(' ').first);
+      getDataFromTasks(dataBase,  selectedDay.toString().split(' ').first);
       emit(DeleteAllFromTasksState());
     });
   }
@@ -290,5 +292,28 @@ class AppCubit extends Cubit<AppStates> {
     focusedDay = focus;
     getDataFromTasks(dataBase, select.toString().split(' ').first);
     emit(SelectDayState());
+  }
+  File? file;
+  var picker =ImagePicker();
+  Future getImage() async {
+    final pickedImage=await picker.pickImage(source: ImageSource.gallery);
+    if(pickedImage!=null)
+    {
+      file=File(pickedImage!.path);
+      processImage();
+      emit(GetImageSuccessState());
+    }else
+    {
+      print("No image selected");
+      emit(GetImageErrorState());
+    }
+  }
+  TextRecognizer textRecognizer=TextRecognizer(script: TextRecognitionScript.latin);
+  String? recognizedText;
+  Future processImage() async {
+    final inputImage=InputImage.fromFile(file!);
+    final RecognizedText rText=await textRecognizer.processImage(inputImage);
+    recognizedText=rText.text;
+    print(recognizedText);
   }
 }

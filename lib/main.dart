@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             appBarTheme: AppBarTheme(
-              backwardsCompatibility: false,
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor: HexColor("#0E121B"),
                 statusBarIconBrightness: Brightness.light

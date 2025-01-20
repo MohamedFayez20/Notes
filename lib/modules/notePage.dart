@@ -1,4 +1,3 @@
-
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +27,10 @@ class NotePage extends StatelessWidget {
         if (cubit.available) {
           bodyController.text =
               nModel == null ? cubit.text! : nModel!['body'] + cubit.text!;
+        }
+        if (cubit.recognizedText != null) {
+          bodyController.text =
+              nModel == null ? cubit.recognizedText! : nModel!['body'] + cubit.recognizedText!;
         }
       },
       builder: (context, state) => Scaffold(
@@ -66,15 +69,22 @@ class NotePage extends StatelessWidget {
                 style: TextStyle(color: Colors.orange, fontSize: 18),
               ),
             ),
+            IconButton(
+              onPressed: () {
+                cubit.getImage();
+              },
+              icon: Icon(
+                Icons.camera_alt_outlined,
+                color: Colors.orange,
+              ),
+            )
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: AvatarGlow(
           animate: cubit.isListening,
-          endRadius: 75.0,
           glowColor: Colors.orangeAccent,
           duration: const Duration(milliseconds: 2000),
-          repeatPauseDuration: const Duration(milliseconds: 100),
           repeat: true,
           child: FloatingActionButton(
             backgroundColor: Colors.white10,
@@ -83,7 +93,7 @@ class NotePage extends StatelessWidget {
               color: Colors.orange,
             ),
             onPressed: () {
-              cubit.edit=false;
+              cubit.edit = false;
               cubit.startSpeech();
             },
           ),

@@ -43,3 +43,9 @@ class DeleteFromTasksState extends AppStates {}
 class DeleteAllFromTasksState extends AppStates {}
 
 class SelectDayState extends AppStates {}
+
+class GetImageSuccessState extends AppStates {}
+
+class GetImageErrorState extends AppStates {}
+
+

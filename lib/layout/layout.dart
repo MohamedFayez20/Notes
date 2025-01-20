@@ -22,7 +22,7 @@ class Layout extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 20,
+            elevation: 0,
             actions: [
               PopupMenuButton(
                 shape: RoundedRectangleBorder(
