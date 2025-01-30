@@ -1,16 +1,30 @@
-# notes
+# 📝 Notes
 
-A new Flutter project.
+**Notes App** is a Flutter application designed to help you manage your daily life efficiently. With this app, you can take notes by typing or using speech-to-text functionality, track your daily tasks, and monitor your progress, all in a beautiful and user-friendly interface.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Features
+- 🖋️ **Write Notes**: Create and organize notes easily by typing them.
+- 🎙️ **Speech-to-Text**: Convert your speech into written words for faster note-taking.
+- ✅ **Daily Task Management**: Add, edit, and track your daily tasks with a clean and intuitive layout.
+- 📊 **Progress Tracking**: Monitor your productivity and daily accomplishments.
+- 🎨 **Pretty UI**: Enjoy a visually pleasing and user-friendly interface.
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 📸 Screenshots
+<p align="center">
+  <img src="images/1.png" alt="Home Screen" width="300" />
+  <img src="images/2.png" alt="Note Creation" width="300" />
+  <img src="images/3.png" alt="Task Tracking" width="300" />
+</p>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🛠️ Technologies Used
+- **Flutter**: For building a cross-platform application.
+- **SQLite**: For efficient local data storage (e.g., notes and tasks).
+- **BLoC**: For state management to ensure smooth app performance.
+
+---
