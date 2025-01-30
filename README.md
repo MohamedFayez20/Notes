@@ -17,6 +17,7 @@
 <p align="center">
   <img src="images/1.png" alt="Home Screen" width="300" />
   <img src="images/2.png" alt="Note Creation" width="300" />
+<br>
   <img src="images/3.png" alt="Task Tracking" width="300" />
   <img src="images/4.png" alt="Task Tracking" width="300" />
 
