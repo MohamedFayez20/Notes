@@ -28,3 +28,8 @@
 - **BLoC**: For state management to ensure smooth app performance.
 
 ---
+## 👤 Author
+- **Name**: Mohamed Fayez
+- **Email**: [Mohfayez2412@gmail.com](mailto:Mohfayez2412@gmail.com)
+- **GitHub**: [https://github.com/MohamedFayez20](https://github.com/MohamedFayez20)
+
